@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 Pytorch DogsVsCats
 ============
 
@@ -23,6 +22,3 @@ One can follow easily  the main function and following the stages:
 3. train  
 4. save model to models directory. If the current model has higher accuracy from the one in the models/best_model directory then 
 replace the older one.
- 
-=======
->>>>>>> parent of cde8287... update README file

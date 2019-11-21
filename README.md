@@ -16,10 +16,10 @@ project
 	
 ```
 like the Pytorch's data loader expects, and set the REBUILD_DATA to false.
-One can follow easily  the main function and following the stages:
-1. building data if needed
-2.create Pytorch Dataloaders
-3.train
-4.save model to models directory. If the current model has higher accuracy from the one in the models/best_model directory then 
+One can follow easily  the main function and following the stages:  
+1. building data if needed  
+2. create Pytorch Dataloaders  
+3. train  
+4. save model to models directory. If the current model has higher accuracy from the one in the models/best_model directory then 
 replace the older one.
  

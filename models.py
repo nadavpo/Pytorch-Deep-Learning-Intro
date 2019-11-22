@@ -1,10 +1,4 @@
 import os
-import numpy as np
-import copy
-from tqdm import tqdm
-import shutil
-import random
-from PIL import Image
 import time
 
 import models
@@ -13,9 +7,6 @@ import torch
 import torch.utils.data
 import torch.multiprocessing
 import torch.nn as nn
-import torch.optim as optim
-from torch.optim import lr_scheduler
-from torchvision import datasets, models, transforms
 import torch.nn.functional as F
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")

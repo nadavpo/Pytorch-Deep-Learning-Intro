@@ -195,4 +195,4 @@ if __name__ == '__main__':
 
     save_model(net, best_acc, epoch + len(accs_val))
 
-    visualization(best_acc, best_loss, accs_train, losses_train, accs_val, losses_val)
+    plot_train_results(best_acc, best_loss, accs_train, losses_train, accs_val, losses_val)

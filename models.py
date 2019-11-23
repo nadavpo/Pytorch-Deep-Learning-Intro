@@ -1,8 +1,6 @@
 import os
 import time
 
-import models
-
 import torch
 import torch.utils.data
 import torch.multiprocessing
@@ -22,9 +20,11 @@ class TwoBlocksNet(nn.Module):
         self.conv4 = nn.Conv2d(128, 128, 5)
         self.bn2 = nn.BatchNorm2d(128)
 
+        #  this is for checking the automatically the input size for the first fc layer
         x = torch.randn(im_size, im_size).view(-1, 1, im_size, im_size)
         self.fc1_size = 0
         self.convs(x)
+        ##
         self.fc1 = nn.Linear(self.fc1_size, 512)
         self.fc2 = nn.Linear(512, n_outputs)
 
@@ -46,10 +46,11 @@ class TwoBlocksNet(nn.Module):
         return F.softmax(self.fc2(x), dim=1)
 
 
-def get_model(im_size, n_outputs, load_model, path):
+def get_model(load_model, path, im_size, n_outputs):
+    # we can choose any model to send back from here
     net = TwoBlocksNet(im_size, n_outputs).to(device)
     epoch = 0
-
+    # load pre-trained model and number of epoch that this model run on if ask to
     if load_model:
         if os.path.isfile(path):
             checkpoint = torch.load(path)
@@ -61,12 +62,14 @@ def get_model(im_size, n_outputs, load_model, path):
 
 
 def save_model(net, acc, epoch):
+    # save
     torch.save({
         'epoch': epoch,
         'acc': acc,
         'model_state_dict': net.state_dict(),
     }, f'models/model_{time.time()}.pkl')
 
+    # if accuracy is the better from that of the 'best_model', save tha current instead
     if not os.path.isfile('models/best_model/model.pkl'):
         if not os.path.isdir('models/best_model'):
             os.mkdir('models/best_model')
@@ -75,7 +78,7 @@ def save_model(net, acc, epoch):
             'acc': acc,
             'model_state_dict': net.state_dict(),
         }, 'models/best_model/model.pkl')
-    else:
+    else: # if there is no 'best_model', save this as the best
         checkpoint = torch.load('models/best_model/model.pkl')
         bst_model_acc = checkpoint['acc']
         if bst_model_acc < acc:

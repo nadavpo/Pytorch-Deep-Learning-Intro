@@ -1,4 +1,4 @@
-Pytorch DogsVsCats
+Pytorch Deep Learning Introduction
 ============
 
 This is kind of introduction to Pytorch.
